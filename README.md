@@ -7,10 +7,3 @@ You can [try it here.](https://react-commentsection.netlify.app)
 
 ## Introduction
 
-### Before commenting: 
-
-![title](Images/before.png)
-
-### After commenting: 
-
-![title](Images/after.png)
