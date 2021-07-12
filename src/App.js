@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Comment from "./components/comment";
+import React, { Component } from "react";
+import Commentsection from "./components/commentsection";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export class App extends Component {
+  state = {
+    comments: [],
+    commentValue: "",
+    vote: 0
+  }
+
+  ratingChanged = (newRating) => {
+    this.setState({
+      vote: newRating
+    })
+  };
+  
+  textChanged = (e) => {
+    this.setState({
+      commentValue: e.target.value
+    })
+
+  }
+  
+
+  handleComment = () => {
+
+    if(this.state.vote === 0){
+      alert("yorum yapmadan önce yıldız seçmediniz")
+    }
+    else if(this.state.commentValue.length < 3){alert("yorumunuz 3 karakterden az olamaz")}
+
+    else{console.log(this.state.vote)
+    console.log(this.state.commentValue)
+
+    const newState = this.state;
+  
+    newState.comments.push({ 
+        text: this.state.commentValue, 
+        vote: this.state.vote 
+    });
+    newState.commentValue = "";
+    newState.vote = 0;
+  
+    this.setState({
+      ...newState
+    });}
+
+    
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Comment comments={this.state.comments}></Comment>
+        <Commentsection handleComment={this.handleComment} ratingChanged = {this.ratingChanged} textChanged = {this.textChanged}></Commentsection>
+      </div>
+    );
+  }
 }
 
 export default App;
